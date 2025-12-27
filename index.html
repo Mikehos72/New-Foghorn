@@ -4,64 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Foghorn</title>
-</head>
-<body>
-  <img id="bg" src="New Foghorn Real Image.png" alt="Foghorn background">
-  <button id="foghornBtn" type="button" aria-label="Play foghorn">
-   <img id="btnImg" src="Newgoldbutton.png">
-alt="Foghorn button">
-  </button>
-
-  <audio id="foghornAudio" src="foghorn.mp3" preload="auto"></audio>
-
-  <script>
-    function applyStyles() {
-      document.documentElement.style.height = "100%";
-      document.body.style.height = "100%";
-      document.body.style.margin = "0";
-      document.body.style.padding = "0";
-      document.body.style.overflow = "hidden";
-      document.body.style.backgroundColor = "black";
-
-      const bg = document.getElementById("bg");
-      bg.style.position = "fixed";
-      bg.style.left = "0";
-      bg.style.top = "0";
-      bg.style.width = "100vw";
-      bg.style.height = "100vh";
-      bg.style.objectFit = "cover";
-      bg.style.display = "block";
-      bg.style.userSelect = "none";
-
-      const btn = document.getElementById("foghornBtn");
-      btn.style.position = "fixed";
-      btn.style.right = "18px";
-      btn.style.bottom = "18px";
-      btn.style.width = "90px";
-      btn.style.height = "90px";
-      btn.style.border = "0";
-      btn.style.padding = "0";
-      btn.style.margin = "0";
-      btn.style.backgroundColor = "transparent";
-      btn.style.cursor = "pointer";
-
-      const btnImg = document.getElementById("btnImg");
-      btnImg.style.width = "100%";
-      btnImg.style.height = "100%";
-      btnImg.style.objectFit = "cover";
-      btnImg.style.borderRadius = "12px";
-      btnImg.style.display = "block";
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: Calibri, Arial, sans-serif;
     }
 
-    applyStyles();
-    window.addEventListener("resize", applyStyles);
+    #bg {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    const foghorn = document.getElementById("foghornAudio");
+    #foghornBtn {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 160px;
+      height: 160px;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    #foghornBtn img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <img id="bg" src="./New Foghorn Real Image.png" alt="Foghorn background">
+
+  <button id="foghornBtn" type="button" aria-label="Play foghorn">
+    <img src="./Newgoldbutton.png" alt="Foghorn button">
+  </button>
+
+  <audio id="foghornAudio" src="./foghorn.mp3" preload="auto"></audio>
+
+  <script>
     const btn = document.getElementById("foghornBtn");
+    const foghorn = document.getElementById("foghornAudio");
 
-    btn.addEventListener("click", playFoghorn);
-
-    async function playFoghorn() {
+    btn.addEventListener("click", async () => {
       try {
         foghorn.pause();
         foghorn.currentTime = 0;
@@ -69,7 +71,7 @@ alt="Foghorn button">
       } catch (e) {
         console.log("Audio blocked by browser policy. Tap again if needed.", e);
       }
-    }
+    });
 
     foghorn.addEventListener("ended", () => {
       foghorn.pause();
